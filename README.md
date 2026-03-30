@@ -1,16 +1,9 @@
 # npm-dyndns-updater
 
 Kleiner Docker-Container, der eine Access-List in Nginx Proxy Manager automatisch
-auf die aktuelle IP eines DynDNS-Hosts setzt. Die Zuordnung erfolgt über den Namen
-der Access-List in der NPM-Datenbank (SQLite).
+auf die aktuelle IP eines DynDNS-Hosts setzt (SQLite-Update nach Access-Listen-Namen).
 
-## Voraussetzungen
-
-- Nginx Proxy Manager läuft in einem Container.
-- Das NPM-`data`-Verzeichnis ist als Hostpfad verfügbar (enthält `database.sqlite`).
-- Docker Socket (`/var/run/docker.sock`) ist auf dem Host vorhanden.
-
-## Verwendung
+## Konfiguration
 
 1. `.env` aus Template erstellen:
 
@@ -25,10 +18,17 @@ der Access-List in der NPM-Datenbank (SQLite).
    - `NPM_DATA_PATH`: Hostpfad zum NPM-`data`-Verzeichnis
    - `DOCKER_SOCK_PATH`: meist `/var/run/docker.sock`
 
-3. Container bauen und starten:
+## Variante 1: Lokales Build
 
-   ```bash
-   docker compose build
-   docker compose up -d
-   ```
+```bash
+docker compose build
+docker compose up -d
+```
 
+## Variante 2: Fertiges Image von GHCR
+
+Voraussetzung: Zugriff auf das Image `ghcr.io/begauns/npm-dyndns-updater:latest`.
+
+```bash
+docker compose -f docker-compose.image.yml up -d
+```

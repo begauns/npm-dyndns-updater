@@ -1,0 +1,18 @@
+services:
+  npm-dyndns-updater:
+    image: ghcr.io/begauns/npm-dyndns-updater:latest
+    container_name: npm-dyndns-updater
+    restart: unless-stopped
+
+    env_file:
+      - .env
+
+    environment:
+      DDNS_HOST: "${DDNS_HOST}"
+      ACCESS_LIST_NAME: "${ACCESS_LIST_NAME}"
+      CHECK_INTERVAL_SECONDS: "${CHECK_INTERVAL_SECONDS}"
+      NPM_CONTAINER_NAME: "${NPM_CONTAINER_NAME}"
+
+    volumes:
+      - ${NPM_DATA_PATH}:/data
+      - ${DOCKER_SOCK_PATH}:/var/run/docker.sock
