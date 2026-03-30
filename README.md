@@ -55,13 +55,9 @@ Der Container:
 Diese Variante baut das Image aus dem mitgelieferten `Dockerfile` lokal.
 
 ```bash
-# im Projektverzeichnis
 docker compose build
 docker compose up -d
 ```
-
-- Der Service heißt `npm-dyndns-updater`.
-- Das Container-Image wird lokal aus dem Dockerfile erzeugt.
 
 ## Variante 2: Fertiges Image von GHCR
 
@@ -72,11 +68,8 @@ Diese Variante nutzt das bereits gebaute Image aus GitHub Container Registry (GH
 Start:
 
 ```bash
-# im Projektverzeichnis
 docker compose -f docker-compose.image.yml up -d
 ```
-
-Damit wird direkt das veröffentlichte Image gezogen und gestartet.
 
 ## Funktionsweise im Detail
 
@@ -91,10 +84,3 @@ Damit wird direkt das veröffentlichte Image gezogen und gestartet.
      (Reload) ausgeführt.
 - Das NPM-`data`-Verzeichnis wird über `NPM_DATA_PATH` nach `/data` in den Updater-Container gemountet,
   der Docker-Socket über `DOCKER_SOCK_PATH`.
-
-## Hinweise
-
-- Die Datei `.env` ist in `.gitignore` eingetragen und wird nicht ins Repository committed.
-  Verwende `.env.example` als Vorlage und passe deine lokale `.env` nach Bedarf an.
-- Wenn du das Image selbst neu nach GHCR pushen möchtest, kannst du es lokal bauen, taggen und
-  mit `docker push ghcr.io/begauns/npm-dyndns-updater:latest` veröffentlichen.
